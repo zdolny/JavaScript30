@@ -1,7 +1,5 @@
 html {
   font-size: 10px;
-  background: url(http://i.imgur.com/b9r5sEL.jpg) bottom center;
-  background-size: cover;
 }
 body,html {
   margin: 0;
@@ -9,15 +7,34 @@ body,html {
   font-family: sans-serif;
 }
 
-.keys {
+.wrap {
   display: flex;
-  flex: 1;
+  flex-direction: column;
+  width: 100%;
   min-height: 100vh;
   align-items: center;
+  background: url(img/terror-berlin.jpg) center;
+  background-size: cover;
+}
+
+.content {
+  display: flex;
+  align-items: center;
   justify-content: center;
+  flex: 1 1 auto;
+}
+
+.keys {
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
 }
 
 .key {
+  flex: 0 0 auto;
   border: .4rem solid black;
   border-radius: .5rem;
   margin: 1rem;
