@@ -76,15 +76,11 @@
     if (e.propertyName !== 'transform') return;
     e.target.classList.remove('playing');
   }
-  function forEachNode(array, callback, scope) {
-    for (let i = 0; i < array.length; i++) {
-      callback.call(scope, i, array[i]);
-    }
-  }
+
   const keys = document.querySelectorAll('.key');
-  forEachNode(keys, (index, el) => {
-    el.addEventListener('transitionend', removeTransition);
-  });
+  for (const key of keys) {
+    key.addEventListener('transitionend', removeTransition);
+  }
   window.addEventListener('keydown', playSound);
 </script>
 
