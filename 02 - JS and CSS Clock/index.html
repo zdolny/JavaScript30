@@ -3,22 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>JS + CSS Clock</title>
+  <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
 </head>
 <body>
 
   <div class="clock">
-    <div class="clock-face">
-      <div class="hand hour-hand"></div>
-      <div class="hand min-hand"></div>
-      <div class="hand second-hand"></div>
+    <div class="clock-analog">
+      <div class="clock-analog-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
     </div>
   </div>
 
   <style>
     html {
-      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
-      background-size:cover;
-      font-family:'helvetica neue';
+      background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background-size: cover;
+      font-family: 'helvetica neue';
       text-align: center;
       font-size: 10px;
     }
@@ -26,20 +29,24 @@
     body {
       margin: 0;
       font-size: 2rem;
-      display:flex;
-      flex:1;
+      display: flex;
+      flex: 1;
       min-height: 100vh;
       align-items: center;
     }
 
     .clock {
+      margin: 0 auto;
+    }
+
+    .clock-analog {
       width: 30rem;
       height: 30rem;
-      border:20px solid white;
-      border-radius:50%;
-      margin:50px auto;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
       position: relative;
-      padding:2rem;
+      padding: 2rem;
       box-shadow:
         0 0 0 4px rgba(0,0,0,0.1),
         inset 0 0 0 3px #EFEFEF,
@@ -47,25 +54,67 @@
         0 0 10px rgba(0,0,0,0.2);
     }
 
-    .clock-face {
+    .clock-analog-face {
       position: relative;
       width: 100%;
       height: 100%;
-      transform: translateY(-3px); /* account for the height of the clock hands */
+      transform: translate(-3px, 3px);
     }
 
     .hand {
-      width:50%;
-      height:6px;
-      background:black;
+      width: 6px;
+      height: 50%;
+      background: black;
       position: absolute;
-      top:50%;
+      left: 50%;
+      transform-origin: 50% calc(100% - 3px);
+      transition: transform .05s;
+      transition-timing-function: cubic-bezier(.3,2.3,.8,.5);
+      border-radius: 0 0 3px 3px;
+    }
+
+    .hand-no-transition {
+      transition: none;
+    }
+
+    .hour-hand {
+      height: 30%;
+      top: 20%;
+    }
+
+    .second-hand {
+      background: crimson;
+    }
+
+    .clock-digital {
+      font-family: 'Orbitron', sans-serif;
     }
 
   </style>
 
   <script>
+    const secondHand = document.querySelector('.second-hand');
+    const minHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
 
+    function setTime() {
+      const now = new Date();
+
+      const seconds = now.getSeconds();
+      const secondsDegrees = ((seconds / 60) * 360);
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+      const minutes = now.getMinutes();
+      const minutesDegrees = ((minutes / 60) * 360);
+      minHand.style.transform = `rotate(${minutesDegrees}deg)`;
+
+      const hours = now.getHours();
+      const hoursDegrees = ((hours / 12) * 360);
+      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+    }
+    
+    setTime();
+    setInterval(setTime, 1000);
   </script>
 </body>
 </html>
