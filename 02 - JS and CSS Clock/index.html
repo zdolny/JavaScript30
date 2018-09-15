@@ -102,14 +102,29 @@
 
       const seconds = now.getSeconds();
       const secondsDegrees = ((seconds / 60) * 360);
+      if (secondsDegrees === 0) {
+        secondHand.classList.add('hand-no-transition');
+      } else {
+        secondHand.classList.remove('hand-no-transition');
+      }
       secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
       const minutes = now.getMinutes();
       const minutesDegrees = ((minutes / 60) * 360);
+      if (minutesDegrees === 0) {
+        minHand.classList.add('hand-no-transition');
+      } else {
+        minHand.classList.remove('hand-no-transition');
+      }
       minHand.style.transform = `rotate(${minutesDegrees}deg)`;
 
       const hours = now.getHours();
       const hoursDegrees = ((hours / 12) * 360);
+      if (hoursDegrees === 0) {
+        hourHand.classList.add('hand-no-transition');
+      } else {
+        hourHand.classList.remove('hand-no-transition');
+      }
       hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
     }
     
