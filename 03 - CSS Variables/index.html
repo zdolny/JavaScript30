@@ -5,26 +5,27 @@
   <title>Scoped CSS Variables and JS</title>
 </head>
 <body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <h2>Update CSS Variables with <span class="highlight">JS</span></h2>
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <input id="spacing" type="range" name="spacing" min="0" max="100" value="0" step="1" data-sizing="px">
 
     <label for="blur">Blur:</label>
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+    <input id="blur" type="range" name="blur" min="0" max="25" value="0" step="1" data-sizing="px">
 
     <label for="base">Base Color</label>
-    <input id="base" type="color" name="base" value="#ffc600">
+    <input id="base" type="color" name="base" value="#c0ff33">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img class="image" src="https://source.unsplash.com/Y5qJKfg0hJ8">
 
   <style>
-
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+    :root {
+      --spacing: 10px;
+      --blur: 5px;
+      --base: #c0ff33;
+    }
 
     body {
       text-align: center;
@@ -34,17 +35,50 @@
       font-weight: 100;
       font-size: 50px;
     }
-
+    .highlight {
+      color: var(--base);
+    }
     .controls {
       margin-bottom: 50px;
     }
-
     input {
-      width:100px;
+      width: 100px;
+    }
+    .image {
+      width: 540px;
+      height: 314px;
+
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+      background: var(--base);
     }
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input');
+    
+    const spacingInput = document.getElementById('spacing');
+    const blurInput = document.getElementById('blur');
+    const baseInput = document.getElementById('base');
+
+    function initInputs() {
+      const initialSpacing = getComputedStyle(document.documentElement).getPropertyValue('--spacing').trim().slice(0, -2);
+      const initialBlur = getComputedStyle(document.documentElement).getPropertyValue('--blur').trim().slice(0, -2);
+      const initialBase = getComputedStyle(document.documentElement).getPropertyValue('--base').trim();
+
+      spacingInput.setAttribute('value', initialSpacing);
+      blurInput.setAttribute('value', initialBlur);
+      baseInput.setAttribute('value', initialBase);
+    }
+    initInputs();
+
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
