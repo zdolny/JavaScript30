@@ -62,9 +62,10 @@
     const baseInput = document.getElementById('base');
 
     function initInputs() {
-      const initialSpacing = getComputedStyle(document.documentElement).getPropertyValue('--spacing').trim().slice(0, -2);
-      const initialBlur = getComputedStyle(document.documentElement).getPropertyValue('--blur').trim().slice(0, -2);
-      const initialBase = getComputedStyle(document.documentElement).getPropertyValue('--base').trim();
+      const computedStyle = getComputedStyle(document.documentElement);
+      const initialSpacing = computedStyle.getPropertyValue('--spacing').trim().slice(0, -2);
+      const initialBlur = computedStyle.getPropertyValue('--blur').trim().slice(0, -2);
+      const initialBase = computedStyle.getPropertyValue('--base').trim();
 
       spacingInput.setAttribute('value', initialSpacing);
       blurInput.setAttribute('value', initialBlur);
@@ -78,7 +79,12 @@
     }
 
     inputs.forEach(input => input.addEventListener('change', handleUpdate));
-    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+    inputs.forEach(input => {
+      input.addEventListener('mousedown', function(e) {
+        this.addEventListener('mousemove', handleUpdate);
+      });
+    });
+
   </script>
 
 </body>
