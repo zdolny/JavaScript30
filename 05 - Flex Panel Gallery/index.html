@@ -125,8 +125,14 @@
 
   <script>
     const panels = document.querySelectorAll('.panel');
+    let openPanels = document.getElementsByClassName('open');
 
     function toggleOpen() {
+      if (!this.classList.contains('open')) {
+        for (panel of openPanels) {
+          panel.classList.remove('open');
+        }
+      }
       this.classList.toggle('open');
     }
 
