@@ -14,9 +14,47 @@
       <li>or a state</li>
     </ul>
   </form>
+
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const cities = [];
+
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data))
+  .catch(err => console.error(err));
+
+function searchPlaces(wordToMatch, places) {
+  return places.filter((place) => {
+    const regex = new RegExp(wordToMatch, 'gi');
+    return place.city.match(regex) || place.state.match(regex);
+  });
+}
+
+function displayPlaces(e) {
+  const matchPlaces = searchPlaces(this.value, cities);
+  const regex = new RegExp(this.value, 'gi');
+  const nameHighlighted =
+  html = matchPlaces.map((place) => {
+    const regex = new RegExp(this.value, 'gi');
+    const cityHighlighted = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const stateHighlighted = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    return `
+      <li>
+        <span class="name">${cityHighlighted}, ${stateHighlighted}</span>
+        <span class="population">${Number(place.population).toLocaleString()}</span>
+      </li>
+    `;
+  }).join('');
+  suggestionsList.innerHTML = html;
+}
+
+const searchInput = document.querySelector('.search');
+const suggestionsList = document.querySelector('.suggestions');
+
+searchInput.addEventListener('keyup', displayPlaces);
 
 </script>
-  </body>
+
+</body>
 </html>
