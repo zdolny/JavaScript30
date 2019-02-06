@@ -6,3 +6,4 @@
 * [04 - Array Cardio Day 1](https://zdolny.github.io/JavaScript30/04%20-%20Array%20Cardio%20Day%201/)
 * [05 - Flex Panel Gallery](https://zdolny.github.io/JavaScript30/05%20-%20Flex%20Panel%20Gallery/)
 * [06 - Type Ahead](https://zdolny.github.io/JavaScript30/06%20-%20Type%20Ahead/)
+* [07 - Array Cardio Day 2](https://zdolny.github.io/JavaScript30/07%20-%20Array%20Cardio%20Day%202/)
