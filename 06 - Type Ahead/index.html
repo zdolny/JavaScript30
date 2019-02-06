@@ -8,15 +8,15 @@
 <body>
 
   <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
+    <input type="text" class="search" placeholder="City or Voivodeship">
     <ul class="suggestions">
       <li>Filter for a city</li>
-      <li>or a state</li>
+      <li>or a voivodeship</li>
     </ul>
   </form>
 
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const endpoint = 'https://gist.githubusercontent.com/zdolny/774b55d8a7db86749785d8f2d7686ee9/raw/3f8f1428b939cc44503549b75512c38306ced61f/polish_cities.json';
 const cities = [];
 
 fetch(endpoint)
@@ -27,7 +27,7 @@ fetch(endpoint)
 function searchPlaces(wordToMatch, places) {
   return places.filter((place) => {
     const regex = new RegExp(wordToMatch, 'gi');
-    return place.city.match(regex) || place.state.match(regex);
+    return place.city.match(regex) || place.voivodeship.match(regex);
   });
 }
 
@@ -38,10 +38,10 @@ function displayPlaces(e) {
   html = matchPlaces.map((place) => {
     const regex = new RegExp(this.value, 'gi');
     const cityHighlighted = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
-    const stateHighlighted = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const voivodeshipHighlighted = place.voivodeship.replace(regex, `<span class="hl">${this.value}</span>`);
     return `
       <li>
-        <span class="name">${cityHighlighted}, ${stateHighlighted}</span>
+        <span class="name">${cityHighlighted}, ${voivodeshipHighlighted}</span>
         <span class="population">${Number(place.population).toLocaleString()}</span>
       </li>
     `;
