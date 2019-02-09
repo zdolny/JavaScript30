@@ -8,3 +8,4 @@
 * [06 - Type Ahead](https://zdolny.github.io/JavaScript30/06%20-%20Type%20Ahead/)
 * [07 - Array Cardio Day 2](https://zdolny.github.io/JavaScript30/07%20-%20Array%20Cardio%20Day%202/)
 * [08 - Fun with HTML5 Canvas](https://zdolny.github.io/JavaScript30/08%20-%20Fun%20with%20HTML5%20Canvas/)
+* [09 - Dev Tools Domination](https://zdolny.github.io/JavaScript30/09%20-%20Dev%20Tools%20Domination/)
