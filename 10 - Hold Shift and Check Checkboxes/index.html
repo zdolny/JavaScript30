@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Hold Shift to Check Multiple Checkboxes</title>
 </head>
+
 <body>
   <style>
 
@@ -14,7 +16,7 @@
 
     .inbox {
       max-width: 400px;
-      margin: 50px auto;
+      margin: 40px auto;
       background: white;
       border-radius: 5px;
       box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
@@ -50,12 +52,13 @@
       border-left: 1px solid #D1E2FF;
     }
   </style>
-   <!--
+  <!--
    The following is a common layout you would see in an email client.
 
    When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
 
   -->
+  <button class="reset">Reset</button>
   <div class="inbox">
     <div class="item">
       <input type="checkbox">
@@ -95,7 +98,40 @@
     </div>
   </div>
 
-<script>
-</script>
+  <script>
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const reset = document.querySelector('.reset');
+
+    let lastChecked = '';
+
+    function handleCheck(e) {
+      let inBetween = false;
+      if (e.shiftKey && this.checked && lastChecked && lastChecked !== this) {
+        checkboxes.forEach(checkbox => {
+          if (checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween;
+          }
+          if (inBetween) {
+            checkbox.checked = true;
+          }
+        });
+      }
+      lastChecked = this;
+    }
+
+    function resetCheckboxes() {
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      lastChecked = '';
+    }
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('click', handleCheck);
+    });
+
+    reset.addEventListener('click', resetCheckboxes);
+  </script>
 </body>
+
 </html>
